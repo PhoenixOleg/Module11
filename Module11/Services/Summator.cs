@@ -22,9 +22,9 @@ namespace Module11.Services
         /// <returns>Сумма чисел</returns>
         /// <exception cref="TooLessArguments">Порождаемое исключение - слишком мало слагаемых (менее 2)</exception>
         /// <exception cref="InvalidStringExption">Порождаемое исключение - неправильный формат строки или некорректный символ в строке</exception>
-        public static double GetSum(string message, long chatId)
+        public static decimal GetSum(string message, long chatId)
         {
-            double sum = 0;
+            decimal sum = 0; //float и double из-за двоичной мантисы дают интересные результаты
             ArrayList numList = new(StringParser(message, chatId));
             
             if (numList.Count < 2)
@@ -34,7 +34,7 @@ namespace Module11.Services
 
             foreach (string sNum in numList)
             {
-                if (double.TryParse(sNum, out double num))
+                if (decimal.TryParse(sNum, out decimal num))
                 { sum += num; }
                 else
                 { throw new InvalidStringExption($"'{sNum}' является некорректным слагаемым", chatId); }
