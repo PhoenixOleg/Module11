@@ -117,7 +117,8 @@ namespace Module11
 
                 IsError = true;
 
-                Thread.Sleep(10000);
+                //Thread.Sleep(10000);
+                await Task.Delay(10000, cancellationToken).ConfigureAwait(false);
 
                 await ExecuteAsync(cancellationToken);
 
@@ -125,15 +126,16 @@ namespace Module11
             }
             else
             {
-                await HandleErrorAsyncOriginal(botClient, exception, cancellationToken);
+                await HandleErrorAsyncOriginal();
             }
         }
 
-        Task HandleErrorAsyncOriginal(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
+        Task HandleErrorAsyncOriginal()
         {
             // Задержка перед повторным подключением
             LogWriter.ConsoleLogger("Ожидаем 10 секунд перед повторным подключением.", false);
-            Thread.Sleep(10000);
+            //Thread.Sleep(10000);
+            Task.Delay(10000).ConfigureAwait(false);
             return Task.CompletedTask;
         }
     }
