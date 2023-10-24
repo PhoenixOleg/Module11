@@ -26,7 +26,7 @@ namespace Module11
 
             // Запускаем сервис
             await host.RunAsync();
-            
+
             LogWriter.ConsoleLogger("Сервис остановлен", false);
         }
 

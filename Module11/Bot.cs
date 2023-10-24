@@ -37,7 +37,7 @@ namespace Module11
             _defaultMessageController = defaultMessageController;
         }
 
-        protected override async Task ExecuteAsync(CancellationToken cancellationToken)
+        protected override Task ExecuteAsync(CancellationToken cancellationToken)
         {
             _telegramClient.StartReceiving(
                 HandleUpdateAsync,
@@ -46,6 +46,8 @@ namespace Module11
                 cancellationToken: cancellationToken);
 
             LogWriter.ConsoleLogger("Бот запущен", false);
+
+            return Task.CompletedTask;
         }
 
         async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
