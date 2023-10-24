@@ -125,7 +125,7 @@ namespace Module11
             }
             else
             {
-                HandleErrorAsyncOriginal(botClient, exception, cancellationToken);
+                await HandleErrorAsyncOriginal(botClient, exception, cancellationToken);
             }
         }
 
