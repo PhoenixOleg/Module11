@@ -8,7 +8,7 @@ using Telegram.Bot.Types.Enums;
 using Module11.Configuration;
 using Module11.Controllers;
 using Module11.Logger;
-
+using System.Reflection.Metadata.Ecma335;
 
 namespace Module11
 {
@@ -46,7 +46,6 @@ namespace Module11
                 cancellationToken: cancellationToken);
 
             LogWriter.ConsoleLogger("Бот запущен", false);
-
         }
 
         async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
@@ -61,7 +60,7 @@ namespace Module11
             // Обрабатываем входящие сообщения из Telegram Bot API: https://core.telegram.org/bots/api#message
             if (update.Type == UpdateType.Message)
             {
-                LogWriter.ConsoleLogger($"Получено сообщение {update.Message.Text}", false);
+                LogWriter.ConsoleLogger($"Получено сообщение {update!.Message!.Text}", false);
                
 
                 switch (update.Message!.Type)
@@ -110,7 +109,7 @@ namespace Module11
                 exception.Message == "Количество слагаемых должно быть не менее двух"
                 )
             {
-                await _telegramClient.SendTextMessageAsync(exception?.Data?["ChatID"]?.ToString(), $"{exception.Message}{Environment.NewLine}Подождите 10 сек - я приду в себя и попробуем еще раз", cancellationToken: cancellationToken);
+                await _telegramClient.SendTextMessageAsync(exception?.Data?["ChatID"]?.ToString(), $"{exception!.Message}{Environment.NewLine}Подождите 10 сек - я приду в себя и попробуем еще раз", cancellationToken: cancellationToken);
 
                 // Задержка перед повторным подключением
                 LogWriter.ConsoleLogger("Ожидаем 10 секунд перед повторным подключением.", false);
@@ -134,8 +133,8 @@ namespace Module11
         {
             // Задержка перед повторным подключением
             LogWriter.ConsoleLogger("Ожидаем 10 секунд перед повторным подключением.", false);
-            //Thread.Sleep(10000);
-            Task.Delay(10000).ConfigureAwait(false);
+            Thread.Sleep(10000);
+            //Task.Delay(10000).ConfigureAwait(false);
             return Task.CompletedTask;
         }
     }

@@ -25,7 +25,7 @@ namespace Module11.Controllers
 
         public async Task Handle(CallbackQuery? callbackQuery, CancellationToken ct)
         {
-            LogWriter.ConsoleLogger($"Контроллер {GetType().Name} обнаружил нажатие на кнопку {callbackQuery.Data}",false);
+            LogWriter.ConsoleLogger($"Контроллер {GetType().Name} обнаружил нажатие на кнопку {callbackQuery!.Data}",false);
 
             if (callbackQuery?.Data == null)
                 return;
